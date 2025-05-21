@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Or your preferred Node.js version
+
+      # If you have build steps (e.g., npm install, npm run build), add them here
+      # For a simple HTML/CSS/JS project like GithubFinder, these might not be necessary
+      # - name: Install dependencies
+      #   run: npm install
+      # - name: Build project
+      #   run: npm run build # Assuming your build output is in a 'dist' or 'build' folder
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ # This should be the root of your GithubFinder project contents
+          # If your project files were in a subfolder of GithubFinder (e.g., 'public'), 
+          # you would change './' to './public'
